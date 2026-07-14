@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "motion/react";
 import { ArrowRight, Check } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { MockupFrame } from "./MockupFrame";
@@ -11,12 +14,22 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const mediaRight = index % 2 === 0;
   const href = `/projects/${project.slug}`;
   return (
-    <article className="group relative grid grid-cols-1 gap-6 rounded-xl border border-hairline bg-canvas p-6 transition-colors duration-[180ms] hover:border-stone sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-10">
-      {/* Media */}
-      <div className={cn("order-1", mediaRight ? "lg:order-2" : "lg:order-1")}>
-        <MockupFrame label={`${project.slug}.app`}>
-          <ProjectMockup kind={project.diagram} />
-        </MockupFrame>
+    <motion.article
+      initial="rest"
+      animate="rest"
+      whileHover="hover"
+      className="group relative grid grid-cols-1 gap-6 rounded-xl border border-hairline bg-canvas p-6 transition-colors duration-[180ms] hover:border-stone sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-10"
+    >
+      {/* Media — subtle scale on card hover */}
+      <div className={cn("order-1 overflow-hidden rounded-xl", mediaRight ? "lg:order-2" : "lg:order-1")}>
+        <motion.div
+          variants={{ rest: { scale: 1 }, hover: { scale: 1.02 } }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <MockupFrame label={`${project.slug}.app`}>
+            <ProjectMockup kind={project.diagram} />
+          </MockupFrame>
+        </motion.div>
       </div>
 
       {/* Copy */}
@@ -49,13 +62,16 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
         <span className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-ink">
           View case study
-          <ArrowRight
-            aria-hidden
-            className="size-4 text-brand-green-deep transition-transform duration-[180ms] group-hover:translate-x-0.5"
-          />
+          <motion.span
+            variants={{ rest: { x: 0 }, hover: { x: 4 } }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="inline-flex text-brand-green-deep"
+          >
+            <ArrowRight aria-hidden className="size-4" />
+          </motion.span>
         </span>
       </div>
-    </article>
+    </motion.article>
   );
 }
 

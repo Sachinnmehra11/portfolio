@@ -5,6 +5,7 @@ import { rootMetadata } from "@/lib/metadata";
 import { personJsonLd, jsonLdScript } from "@/lib/structured-data";
 import { PortfolioHeader } from "@/components/navigation/PortfolioHeader";
 import { Footer } from "@/components/navigation/Footer";
+import { MotionProvider } from "@/components/interactive/MotionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -72,9 +73,11 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <PortfolioHeader />
-        <main id="main">{children}</main>
-        <Footer />
+        <MotionProvider>
+          <PortfolioHeader />
+          <main id="main">{children}</main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

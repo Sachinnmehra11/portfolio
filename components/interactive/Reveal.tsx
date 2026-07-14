@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
-import { cn } from "@/lib/cn";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
+import type { ReactNode } from "react";
+
+type RevealTag = "div" | "section" | "article" | "li" | "span";
 
 /**
- * Reveal-on-scroll wrapper. Progressive enhancement:
- * - Server renders content in the visible state's markup; the `.reveal` class
- *   only hides it once JS confirms motion is allowed.
- * - Uses a single IntersectionObserver; unobserves after first reveal.
- * - Respects prefers-reduced-motion (content shown immediately, no transition).
+ * Scroll-reveal wrapper built on Motion for React. Fades + lifts content in
+ * once, when it enters the viewport. Honors prefers-reduced-motion globally
+ * via MotionConfig (see MotionProvider) — reduced motion keeps opacity only.
+ *
+ * API is unchanged from the previous IntersectionObserver version so all
+ * existing call sites keep working.
  */
 export function Reveal({
   as = "div",
@@ -16,54 +20,27 @@ export function Reveal({
   className,
   children,
 }: {
-  as?: ElementType;
-  /** Stagger delay in ms. */
+  as?: RevealTag;
+  /** Stagger delay in milliseconds. */
   delay?: number;
   className?: string;
   children: ReactNode;
 }) {
-  const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
-  const [enhanced, setEnhanced] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
+  const MotionTag = motion[as];
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      setVisible(true);
-      return;
-    }
-
-    setEnhanced(true); // apply hidden initial state only when we can animate
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.1 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  const Tag = as as ElementType;
   return (
-    <Tag
+    <MotionTag
+      // @ts-expect-error — ref type varies by tag; runtime is correct.
       ref={ref}
-      data-visible={visible ? "true" : "false"}
-      className={cn(enhanced && "reveal", className)}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: delay / 1000 }}
+      className={className}
     >
       {children}
-    </Tag>
+    </MotionTag>
   );
 }
 

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { navItems, resumeNav } from "@/content/navigation";
 import { profile } from "@/content/profile";
@@ -103,13 +104,14 @@ export function PortfolioHeader() {
                 )}
               >
                 {item.label}
-                <span
-                  aria-hidden
-                  className={cn(
-                    "absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-brand-green transition-opacity duration-[180ms]",
-                    isActive ? "opacity-100" : "opacity-0",
-                  )}
-                />
+                {isActive && (
+                  <motion.span
+                    aria-hidden
+                    layoutId="nav-active-marker"
+                    className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-brand-green"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
               </Link>
             );
           })}
@@ -141,44 +143,54 @@ export function PortfolioHeader() {
       </div>
 
       {/* Mobile drawer */}
-      {open && (
-        <>
-          <div
-            className="fixed inset-0 top-16 z-30 bg-primary/40 lg:hidden"
-            aria-hidden
-            onClick={() => setOpen(false)}
-          />
-          <div
-            id="mobile-drawer"
-            className="fixed inset-x-0 top-16 z-40 border-b border-hairline bg-canvas p-5 lg:hidden"
-          >
-            <nav aria-label="Mobile" className="flex flex-col gap-1">
-              {navItems.map((item) => (
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              className="fixed inset-0 top-16 z-30 bg-primary/40 lg:hidden"
+              aria-hidden
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.div
+              id="mobile-drawer"
+              className="fixed inset-x-0 top-16 z-40 origin-top border-b border-hairline bg-canvas p-5 lg:hidden"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <nav aria-label="Mobile" className="flex flex-col gap-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-md px-3 py-3 text-base font-medium text-ink hover:bg-surface focus-visible:outline-none"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  href={resumeNav.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-3 text-base font-medium text-ink hover:bg-surface focus-visible:outline-none"
+                  className="mt-2 inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-canvas"
                 >
-                  {item.label}
+                  {resumeNav.label}
                 </Link>
-              ))}
-              <Link
-                href={resumeNav.href}
-                onClick={() => setOpen(false)}
-                className="mt-2 inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-5 text-sm font-medium text-canvas"
-              >
-                {resumeNav.label}
-              </Link>
-              <div className="mt-3 flex items-center gap-1">
-                <SocialLink kind="github" href={profile.links.github} label="GitHub profile (opens in a new tab)" />
-                <SocialLink kind="linkedin" href={profile.links.linkedin} label="LinkedIn profile (opens in a new tab)" />
-                <SocialLink kind="email" href={`mailto:${profile.email}`} label={`Email ${profile.name}`} />
-              </div>
-            </nav>
-          </div>
-        </>
-      )}
+                <div className="mt-3 flex items-center gap-1">
+                  <SocialLink kind="github" href={profile.links.github} label="GitHub profile (opens in a new tab)" />
+                  <SocialLink kind="linkedin" href={profile.links.linkedin} label="LinkedIn profile (opens in a new tab)" />
+                  <SocialLink kind="email" href={`mailto:${profile.email}`} label={`Email ${profile.name}`} />
+                </div>
+              </nav>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
