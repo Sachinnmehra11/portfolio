@@ -35,7 +35,7 @@ export const profile = {
     headline:
       "I build reliable enterprise software with .NET, Angular, and event-driven systems.",
     supporting:
-      "I'm Sachin Mehra, a software engineer with 4+ years of experience developing and modernizing enterprise applications using C#, ASP.NET Core, Angular, SQL Server, RabbitMQ, Docker, and clean architecture principles.",
+      "A software engineer with 4+ years of experience developing and modernizing enterprise applications using C#, ASP.NET Core, Angular, SQL Server, RabbitMQ, Docker, and clean architecture principles.",
     specializedIn: "Specialized in .NET, Angular, REST APIs, and event-driven systems.",
     statusChip: "Software Engineer @ Symplr",
     primaryCta: "View my work",
