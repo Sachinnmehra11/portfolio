@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sachin Mehra — Portfolio
 
-## Getting Started
+Production-ready personal portfolio for a .NET / Angular software engineer.
+Built with **Next.js (App Router) · React · TypeScript · Tailwind CSS v4**.
 
-First, run the development server:
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm start        # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Routes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Route | Description |
+| --- | --- |
+| `/` | Single-page portfolio (hero, about, work, experience, skills, approach, education, contact) |
+| `/projects/enterprise-task-management` | Case study |
+| `/projects/expense-tracker` | Case study |
+| `/resume` | Web résumé with **Download PDF** (browser print) |
+| `/sitemap.xml`, `/robots.txt` | SEO |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configuration
 
-## Learn More
+Edit [`content/profile.ts`](content/profile.ts) → `profile.config`:
 
-To learn more about Next.js, take a look at the following resources:
+- `resumePdfPath` — path to a real PDF if you add one to `public/` (the résumé
+  route currently uses print-to-PDF, no binary required).
+- `contactEndpoint` — set a POST endpoint for the contact form; empty falls back
+  to a `mailto:` link.
+- `showPhone` — off by default (phone stays off public pages).
+- `openToWork` — off by default.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set the deployed origin for absolute URLs / OG / sitemap:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# .env
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
 
-## Deploy on Vercel
+## Content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All copy lives in typed files under [`content/`](content/) — `profile`,
+`experience`, `projects`, `skills`, `education`, `navigation`. Pages are
+data-driven; there is no duplicated copy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Design system
+
+See [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md). Tokens: `styles/tokens.css`
+(CSS variables) ↔ `lib/tokens.ts` (typed) ↔ `styles/globals.css` (Tailwind
+`@theme`).
+
+## Deploy
+
+Deploy to Vercel or any Node host. Set `NEXT_PUBLIC_SITE_URL` in the environment.
+
+---
+
+*Built with Next.js and TypeScript — implementation stack only; not presented as
+professional experience.*

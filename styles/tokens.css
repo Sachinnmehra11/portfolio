@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Sachin Mehra — Design Tokens (CSS custom properties)
+   Single source of truth for color, type, spacing, radius, shadow, motion.
+   Mirrored in lib/tokens.ts (typed) and mapped into Tailwind via @theme.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand ---- */
+  --brand-green: #00d4a4;
+  --brand-green-deep: #00b88f;
+  --brand-green-soft: #e9fbf6;
+  --brand-blue: #3772cf;
+  --brand-warning: #e7a43a;
+  --brand-error: #e45454;
+  --accent-orange: #f47c55;
+
+  /* ---- Core ---- */
+  --primary: #0b0b0c;
+  --on-primary: #ffffff;
+  --canvas: #ffffff;
+  --canvas-dark: #0a0d0c;
+  --surface: #f5f7f6;
+  --surface-soft: #fafaf9;
+  --surface-code: #111816;
+  --hairline: #e6e8e7;
+  --hairline-soft: #eef0ef;
+  --hairline-dark: #29312f;
+
+  /* ---- Text ---- */
+  --ink: #111312;
+  --charcoal: #303735;
+  --slate: #5e6966;
+  --steel: #7a8582;
+  --stone: #9aa39f;
+  --muted: #b7beba;
+  --on-dark: #ffffff;
+  --on-dark-muted: rgba(255, 255, 255, 0.66);
+
+  /* ---- Hero atmospheres ---- */
+  --hero-sky-from: #8ec9f2;
+  --hero-sky-to: #f8f1e6;
+  --hero-dark-from: #073f3b;
+  --hero-dark-to: #6ed8b9;
+
+  /* Composed hero/grid values (theme-swappable — see dark block below) */
+  --hero-a: var(--hero-sky-from);
+  --hero-b: var(--hero-sky-to);
+  --hero-bloom: rgba(0, 212, 164, 0.14);
+  --hero-bloom-2: rgba(142, 201, 242, 0.35);
+  --grid-line: rgba(17, 19, 18, 0.04);
+
+  /* ---- Spacing (4px base) ---- */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-xxxl: 40px;
+  --space-section-sm: 48px;
+  --space-section: 64px;
+  --space-section-lg: 96px;
+  --space-hero: 120px;
+
+  /* ---- Radius ---- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-xxl: 24px;
+  --radius-full: 9999px;
+
+  /* ---- Shadows ---- */
+  --shadow-level-0: none;
+  --shadow-level-1: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-level-2: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-level-3: 0 24px 48px -8px rgba(0, 0, 0, 0.12);
+  --shadow-brand-tinted: 0 8px 24px rgba(0, 212, 164, 0.08);
+
+  /* ---- Layout ---- */
+  --container-max: 1280px;
+  --reading-max: 720px;
+  --gutter-desktop: 32px;
+  --gutter-tablet: 24px;
+  --gutter-mobile: 20px;
+
+  /* ---- Motion ---- */
+  --motion-control: 180ms;
+  --motion-reveal: 320ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0.05, 0.36, 1);
+
+  /* ---- Focus ---- */
+  --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--brand-green);
+}
+
+/* ==========================================================================
+   Dark theme — derived from the design system's dark tokens
+   (canvas-dark, surface-code, hairline-dark, on-dark) with the remaining
+   text/surface values derived for WCAG-AA contrast. Applied when the root
+   carries [data-theme="dark"] (set by the no-flash script + ThemeToggle).
+   --primary stays near-black (scrim/accents); solid CTAs use ink/canvas,
+   which invert here into a light pill with dark text.
+   ========================================================================== */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --canvas: #0a0d0c;
+  --surface: #131816;
+  --surface-soft: #0f1412;
+  /* surface-code (#111816) stays lighter than canvas so dark panels read */
+  --hairline: #242b28;
+  --hairline-soft: #1b211e;
+
+  --ink: #f1f4f2;
+  --charcoal: #d2d8d5;
+  --slate: #a5ada9;
+  --steel: #8b938f;
+  --stone: #6f7773;
+  --muted: #565d59;
+
+  /* Brighter accents for text/hover on dark surfaces */
+  --brand-green-deep: #2fd9b3;
+  --brand-green-soft: rgba(0, 212, 164, 0.14);
+
+  /* Dark hero atmosphere + grid */
+  --hero-a: #0c1a17;
+  --hero-b: #0a1210;
+  --hero-bloom: rgba(0, 212, 164, 0.12);
+  --hero-bloom-2: rgba(55, 114, 207, 0.16);
+  --grid-line: rgba(255, 255, 255, 0.05);
+
+  /* Shadows need more presence on dark backgrounds */
+  --shadow-level-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-level-2: 0 6px 16px rgba(0, 0, 0, 0.5);
+  --shadow-level-3: 0 24px 48px -8px rgba(0, 0, 0, 0.6);
+  --shadow-brand-tinted: 0 8px 24px rgba(0, 212, 164, 0.14);
+}

@@ -1,65 +1,223 @@
-import Image from "next/image";
+import { ArrowRight, Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
+import { Container, Section } from "@/components/foundations";
+import { Button } from "@/components/buttons/Button";
+import { CopyButton } from "@/components/buttons/CopyButton";
+import { SectionHeading, Eyebrow, Prose } from "@/components/content";
+import { HeroPortrait } from "@/components/content/HeroPortrait";
+import { Reveal } from "@/components/interactive/Reveal";
+import { HeroArtwork } from "@/components/projects/HeroArtwork";
+import { ProjectCard } from "@/components/cards/ProjectCard";
+import { Timeline } from "@/components/cards/Timeline";
+import { SkillGroup, PrincipleCard, EducationCard } from "@/components/cards/InfoCards";
+import { ContactForm } from "@/components/interactive/ContactForm";
+import { profile } from "@/content/profile";
+import { projects } from "@/content/projects";
+import { experience } from "@/content/experience";
+import { skillGroups, expertise } from "@/content/skills";
+import { education, principles } from "@/content/education";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <>
+      {/* ── Hero ──────────────────────────────────────────────────────── */}
+      <section aria-labelledby="hero-h" className="relative overflow-hidden">
+        <div aria-hidden className="hero-atmosphere absolute inset-0 -z-10" />
+        <div aria-hidden className="surface-grid absolute inset-0 -z-10 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" />
+        <Container className="grid grid-cols-1 items-center gap-12 py-[clamp(72px,12vw,120px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
+          <div className="flex flex-col gap-6">
+            <Reveal className="flex items-center gap-4">
+              <HeroPortrait />
+              <div className="flex flex-col gap-1.5">
+                <Eyebrow>{profile.hero.eyebrow}</Eyebrow>
+                <span className="t-mono text-[13px] text-slate">{profile.name}</span>
+              </div>
+            </Reveal>
+            <Reveal delay={60}>
+              <h1 id="hero-h" className="t-hero-display max-w-2xl text-balance text-ink">
+                {profile.hero.headline}
+              </h1>
+            </Reveal>
+            <Reveal delay={120}>
+              <p className="reading-measure t-subtitle text-charcoal">
+                {profile.hero.supporting}
+              </p>
+            </Reveal>
+            <Reveal delay={180}>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button href="/#work" size="lg">
+                  {profile.hero.primaryCta}
+                  <ArrowRight aria-hidden className="size-4" />
+                </Button>
+                <Button href={profile.config.resumePdfPath} download variant="secondary" size="lg">
+                  {profile.hero.secondaryCta}
+                </Button>
+                <Button href={profile.links.github} external variant="ghost" size="lg">
+                  <GithubIcon className="size-4" />
+                  {profile.hero.tertiaryCta}
+                </Button>
+              </div>
+            </Reveal>
+            <Reveal delay={240}>
+              <div className="t-mono inline-flex w-fit items-center gap-2 rounded-full border border-hairline bg-canvas/70 px-3 py-1.5 text-[13px] text-charcoal backdrop-blur">
+                <span aria-hidden className="size-1.5 rounded-full bg-brand-green" />
+                {profile.hero.statusChip}
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal delay={160} className="w-full">
+            <HeroArtwork />
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* ── Expertise strip ──────────────────────────────────────────── */}
+      <div className="border-y border-hairline bg-surface-soft">
+        <Container className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-5">
+          {expertise.map((item) => (
+            <span key={item} className="t-mono text-[13px] text-slate">
+              {item}
+            </span>
+          ))}
+        </Container>
+      </div>
+
+      {/* ── About ────────────────────────────────────────────────────── */}
+      <Section id="about" spacing="lg">
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <Reveal>
+            <SectionHeading eyebrow="About" title="Enterprise software, built to last." />
+          </Reveal>
+          <Reveal delay={80}>
+            <Prose className="max-w-none">
+              {profile.about.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </Prose>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ── Featured projects ────────────────────────────────────────── */}
+      <Section id="work" spacing="lg" className="bg-surface-soft">
+        <Container className="flex flex-col gap-10">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Selected work"
+              title="Featured projects"
+              lead="Two enterprise case studies — full-stack delivery across Angular, ASP.NET Core, and SQL Server. Presented at a high level to respect confidentiality."
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          </Reveal>
+          <div className="flex flex-col gap-6">
+            {projects.map((project, i) => (
+              <Reveal key={project.slug} delay={i * 80}>
+                <ProjectCard project={project} index={i} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Experience ───────────────────────────────────────────────── */}
+      <Section id="experience" spacing="lg">
+        <Container className="flex flex-col gap-10">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Experience"
+              title="A focused engineering track record"
+              lead="Delivering and modernizing enterprise applications end to end."
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <Timeline roles={experience} />
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ── Skills ───────────────────────────────────────────────────── */}
+      <Section id="skills" spacing="lg" className="bg-surface-soft">
+        <Container className="flex flex-col gap-10">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Capabilities"
+              title="Technical skills, grouped by strength"
+              lead="Strongest in .NET backend and Angular, with messaging, data, and delivery across the stack."
+            />
+          </Reveal>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {skillGroups.map((group, i) => (
+              <Reveal key={group.id} delay={i * 60}>
+                <SkillGroup group={group} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Engineering approach ─────────────────────────────────────── */}
+      <Section spacing="lg">
+        <Container className="flex flex-col gap-10">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Engineering approach"
+              title="Principles that keep systems reliable"
+            />
+          </Reveal>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {principles.map((principle, i) => (
+              <Reveal key={principle.title} delay={i * 60}>
+                <PrincipleCard principle={principle} index={i} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Education ─────────────────────────────────────────────────── */}
+      <Section spacing="md" className="bg-surface-soft">
+        <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[0.5fr_1fr] lg:items-center">
+          <Reveal>
+            <SectionHeading eyebrow="Education" title="Foundations" />
+          </Reveal>
+          <Reveal delay={80}>
+            <EducationCard education={education} />
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ── Contact ──────────────────────────────────────────────────── */}
+      <Section id="contact" spacing="lg">
+        <Container className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+          <Reveal className="flex flex-col gap-6">
+            <SectionHeading eyebrow="Contact" title={profile.contactHeadline} lead={profile.contactSupporting} />
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <Button href={`mailto:${profile.email}`} size="md">
+                  <Mail aria-hidden className="size-4" />
+                  Email me
+                </Button>
+                <CopyButton value={profile.email} label="Copy email" copiedLabel="Email copied" />
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button href={profile.links.linkedin} external variant="secondary" size="md">
+                  <LinkedinIcon className="size-4" />
+                  LinkedIn
+                </Button>
+                <Button href={profile.links.github} external variant="secondary" size="md">
+                  <GithubIcon className="size-4" />
+                  GitHub
+                </Button>
+              </div>
+              <p className="t-mono text-[13px] text-steel">{profile.email}</p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={100} className="rounded-xl border border-hairline bg-canvas p-6 sm:p-8">
+            <ContactForm />
+          </Reveal>
+        </Container>
+      </Section>
+    </>
   );
 }
