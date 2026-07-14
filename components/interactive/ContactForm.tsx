@@ -66,8 +66,9 @@ export function ContactForm() {
     };
   }
 
+  // text-base (16px) on inputs prevents iOS Safari from auto-zooming on focus.
   const inputCls =
-    "min-h-11 w-full rounded-md border border-hairline bg-canvas px-3 py-2.5 text-sm text-ink " +
+    "min-h-11 w-full rounded-md border border-hairline bg-canvas px-3 py-2.5 text-base text-ink " +
     "placeholder:text-stone transition-colors focus-visible:outline-none focus-visible:border-brand-green";
 
   return (

@@ -4,7 +4,7 @@ import { Container, Section } from "@/components/foundations";
 import { Button } from "@/components/buttons/Button";
 import { CopyButton } from "@/components/buttons/CopyButton";
 import { SectionHeading, Prose } from "@/components/content";
-import { HeroPortraitLarge } from "@/components/content/HeroPortrait";
+import { HeroPortraitLarge, HeroPortraitCircle } from "@/components/content/HeroPortrait";
 import { Reveal } from "@/components/interactive/Reveal";
 import { HeroArtwork } from "@/components/projects/HeroArtwork";
 import { ProjectCard } from "@/components/cards/ProjectCard";
@@ -25,6 +25,11 @@ export default function HomePage() {
         <div aria-hidden className="hero-atmosphere-warm absolute inset-0 -z-10" />
         <Container className="grid grid-cols-1 items-center gap-12 py-[clamp(56px,10vw,104px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div className="flex flex-col gap-5">
+            {/* Circular avatar — small screens only (large frame shows lg+) */}
+            <Reveal className="lg:hidden">
+              <HeroPortraitCircle />
+            </Reveal>
+
             <Reveal>
               <div className="t-mono inline-flex w-fit items-center gap-2 rounded-full border border-hairline bg-canvas/70 px-3 py-1.5 text-[13px] text-charcoal backdrop-blur">
                 <span aria-hidden className="size-1.5 rounded-full bg-brand-green" />
@@ -95,7 +100,7 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-          <Reveal delay={140} className="mx-auto w-full lg:mx-0 lg:justify-self-end">
+          <Reveal delay={140} className="hidden lg:block lg:justify-self-end">
             <HeroPortraitLarge />
           </Reveal>
         </Container>

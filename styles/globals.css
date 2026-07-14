@@ -191,16 +191,17 @@
     width: 100%;
     max-width: var(--container-max);
     margin-inline: auto;
-    padding-inline: var(--gutter-mobile);
+    /* Honor the notch/rounded-corner safe area in landscape on iOS. */
+    padding-inline: max(var(--gutter-mobile), env(safe-area-inset-left), env(safe-area-inset-right));
   }
   @media (min-width: 768px) {
     .container-page {
-      padding-inline: var(--gutter-tablet);
+      padding-inline: max(var(--gutter-tablet), env(safe-area-inset-left), env(safe-area-inset-right));
     }
   }
   @media (min-width: 1024px) {
     .container-page {
-      padding-inline: var(--gutter-desktop);
+      padding-inline: max(var(--gutter-desktop), env(safe-area-inset-left), env(safe-area-inset-right));
     }
   }
 

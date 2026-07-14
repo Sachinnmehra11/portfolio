@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "@/styles/globals.css";
 import { rootMetadata } from "@/lib/metadata";
@@ -29,6 +29,17 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = rootMetadata;
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Extend under the notch/home indicator; gutters honor safe-area insets.
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0d0c" },
+  ],
+};
 
 export default function RootLayout({
   children,
