@@ -67,11 +67,12 @@ export function PortfolioHeader() {
   return (
     <header
       className={cn(
-        "no-print sticky top-0 z-40 w-full backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-200",
-        "supports-[backdrop-filter]:bg-canvas/75 bg-canvas/95",
+        // Solid background (no backdrop-blur): avoids re-compositing the
+        // animated hero canvas underneath on every scroll frame.
+        "no-print sticky top-0 z-40 w-full transition-[background-color,border-color,box-shadow] duration-200",
         scrolled
-          ? "border-b border-hairline shadow-[var(--shadow-level-1)] supports-[backdrop-filter]:bg-canvas/90"
-          : "border-b border-hairline/60",
+          ? "border-b border-hairline bg-canvas shadow-[var(--shadow-level-1)]"
+          : "border-b border-hairline/60 bg-canvas/95",
       )}
     >
       <div className="container-page flex h-16 items-center justify-between gap-4">

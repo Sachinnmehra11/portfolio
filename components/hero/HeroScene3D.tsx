@@ -70,7 +70,7 @@ function SceneEnvironment() {
 function CentralSphere() {
   return (
     <mesh castShadow>
-      <icosahedronGeometry args={[1.35, 6]} />
+      <icosahedronGeometry args={[1.35, 4]} />
       <meshStandardMaterial
         color="#0a201c"
         metalness={0.85}
@@ -175,9 +175,9 @@ export default function HeroScene3D({ active }: { active: boolean }) {
   return (
     <Canvas
       aria-hidden
-      dpr={[1, 1.5]}
-      // "always" while in view (ambient rotation); "demand" when paused/reduced
-      // motion still renders a correctly-sized static frame without a loop.
+      dpr={[1, 1.25]}
+      // Let R3F drop resolution automatically if the GPU falls behind.
+      performance={{ min: 0.5 }}
       // "always" while in view (ambient rotation); "demand" when paused/reduced
       // motion still renders a correctly-sized static frame without a loop.
       frameloop={animate ? "always" : "demand"}
