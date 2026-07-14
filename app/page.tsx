@@ -100,7 +100,7 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-          <Reveal delay={140} className="hidden lg:block lg:justify-self-end">
+          <Reveal delay={140} className="hidden w-full lg:block lg:justify-self-end">
             <HeroPortraitLarge />
           </Reveal>
         </Container>

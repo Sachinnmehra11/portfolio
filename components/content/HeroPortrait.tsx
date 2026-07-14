@@ -67,10 +67,9 @@ export function HeroPortraitLarge({ className }: { className?: string }) {
         src="/images/sachin-portrait-large.jpg"
         alt="Sachin Mehra"
         fill
-        sizes="(min-width: 1024px) 420px, 0px"
+        sizes="420px"
         className="object-cover"
-        // Shown only at lg+; lazy so mobile (circle avatar) doesn't fetch it.
-        loading="lazy"
+        priority
       />
     </div>
   );
