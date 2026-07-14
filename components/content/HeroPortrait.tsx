@@ -26,4 +26,29 @@ export function HeroPortrait({ className }: { className?: string }) {
   );
 }
 
+/**
+ * Large framed hero photo (real background retained — no cutout, per
+ * available tooling). Sized prominently but kept in a soft-cornered,
+ * bordered frame rather than a full silhouette treatment.
+ */
+export function HeroPortraitLarge({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        "relative aspect-[7/9] w-full max-w-[420px] overflow-hidden rounded-3xl border border-hairline shadow-[var(--shadow-level-3)]",
+        className,
+      )}
+    >
+      <Image
+        src="/images/sachin-portrait-large.jpg"
+        alt="Sachin Mehra"
+        fill
+        sizes="(min-width: 1024px) 420px, (min-width: 640px) 60vw, 85vw"
+        className="object-cover"
+        priority
+      />
+    </div>
+  );
+}
+
 export default HeroPortrait;

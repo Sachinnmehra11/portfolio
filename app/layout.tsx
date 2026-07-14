@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "@/styles/globals.css";
 import { rootMetadata } from "@/lib/metadata";
 import { personJsonLd, jsonLdScript } from "@/lib/structured-data";
@@ -18,13 +18,27 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Accent-only italic serif for the hero greeting. Not a body/UI typeface —
+// keeps the developer-docs restraint everywhere except this one moment.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["italic"],
+  variable: "--font-accent-serif",
+  display: "swap",
+});
+
 export const metadata: Metadata = rootMetadata;
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Set theme before paint: stored choice → system preference. Prevents
             a flash of the wrong theme. Runs synchronously in <head>. */}

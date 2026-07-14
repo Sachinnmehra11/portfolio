@@ -3,8 +3,8 @@ import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
 import { Container, Section } from "@/components/foundations";
 import { Button } from "@/components/buttons/Button";
 import { CopyButton } from "@/components/buttons/CopyButton";
-import { SectionHeading, Eyebrow, Prose } from "@/components/content";
-import { HeroPortrait } from "@/components/content/HeroPortrait";
+import { SectionHeading, Prose } from "@/components/content";
+import { HeroPortraitLarge } from "@/components/content/HeroPortrait";
 import { Reveal } from "@/components/interactive/Reveal";
 import { HeroArtwork } from "@/components/projects/HeroArtwork";
 import { ProjectCard } from "@/components/cards/ProjectCard";
@@ -22,29 +22,64 @@ export default function HomePage() {
     <>
       {/* ── Hero ──────────────────────────────────────────────────────── */}
       <section aria-labelledby="hero-h" className="relative overflow-hidden">
-        <div aria-hidden className="hero-atmosphere absolute inset-0 -z-10" />
-        <div aria-hidden className="surface-grid absolute inset-0 -z-10 opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" />
-        <Container className="grid grid-cols-1 items-center gap-12 py-[clamp(72px,12vw,120px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
-          <div className="flex flex-col gap-6">
-            <Reveal className="flex items-center gap-4">
-              <HeroPortrait />
-              <div className="flex flex-col gap-1.5">
-                <Eyebrow>{profile.hero.eyebrow}</Eyebrow>
-                <span className="t-mono text-[13px] text-slate">{profile.name}</span>
+        <div aria-hidden className="hero-atmosphere-warm absolute inset-0 -z-10" />
+        <Container className="grid grid-cols-1 items-center gap-12 py-[clamp(56px,10vw,104px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+          <div className="flex flex-col gap-5">
+            <Reveal>
+              <div className="t-mono inline-flex w-fit items-center gap-2 rounded-full border border-hairline bg-canvas/70 px-3 py-1.5 text-[13px] text-charcoal backdrop-blur">
+                <span aria-hidden className="size-1.5 rounded-full bg-brand-green" />
+                {profile.hero.statusChip}
               </div>
             </Reveal>
+
             <Reveal delay={60}>
-              <h1 id="hero-h" className="t-hero-display max-w-2xl text-balance text-ink">
-                {profile.hero.headline}
+              <p className="font-accent-serif text-[clamp(2.25rem,5vw,3.25rem)] leading-none text-ink">
+                {profile.hero.greeting}
+              </p>
+            </Reveal>
+
+            <Reveal delay={110}>
+              <h1
+                id="hero-h"
+                className="flex flex-wrap items-end gap-x-4 gap-y-1 text-balance"
+              >
+                <span className="text-[clamp(2.5rem,7vw,4.5rem)] font-black uppercase leading-[0.95] tracking-tight text-ink">
+                  {profile.hero.nameDisplay}
+                </span>
+                <span className="pb-1 text-[clamp(1.1rem,2.2vw,1.5rem)] font-bold uppercase leading-tight tracking-tight text-charcoal">
+                  {profile.hero.titleDisplay}
+                </span>
               </h1>
             </Reveal>
-            <Reveal delay={120}>
-              <p className="reading-measure t-subtitle text-charcoal">
+
+            <Reveal delay={150}>
+              <p className="t-mono max-w-md text-[13px] text-slate">
+                {profile.hero.specializedIn}
+              </p>
+            </Reveal>
+
+            <Reveal delay={190}>
+              <p className="reading-measure t-body text-charcoal">
                 {profile.hero.supporting}
               </p>
             </Reveal>
-            <Reveal delay={180}>
-              <div className="flex flex-wrap items-center gap-3">
+
+            <Reveal delay={230}>
+              <div className="flex items-center gap-8">
+                <div className="flex flex-col">
+                  <span className="text-3xl font-bold text-ink">{profile.experienceYears}</span>
+                  <span className="t-caption text-slate">Years experience</span>
+                </div>
+                <div className="h-9 w-px bg-hairline" aria-hidden />
+                <div className="flex flex-col">
+                  <span className="text-3xl font-bold text-ink">{projects.length}</span>
+                  <span className="t-caption text-slate">Featured case studies</span>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={270}>
+              <div className="flex flex-wrap items-center gap-3 pt-1">
                 <Button href="/#work" size="lg">
                   {profile.hero.primaryCta}
                   <ArrowRight aria-hidden className="size-4" />
@@ -58,16 +93,10 @@ export default function HomePage() {
                 </Button>
               </div>
             </Reveal>
-            <Reveal delay={240}>
-              <div className="t-mono inline-flex w-fit items-center gap-2 rounded-full border border-hairline bg-canvas/70 px-3 py-1.5 text-[13px] text-charcoal backdrop-blur">
-                <span aria-hidden className="size-1.5 rounded-full bg-brand-green" />
-                {profile.hero.statusChip}
-              </div>
-            </Reveal>
           </div>
 
-          <Reveal delay={160} className="w-full">
-            <HeroArtwork />
+          <Reveal delay={140} className="mx-auto w-full lg:mx-0 lg:justify-self-end">
+            <HeroPortraitLarge />
           </Reveal>
         </Container>
       </section>
@@ -86,9 +115,14 @@ export default function HomePage() {
       {/* ── About ────────────────────────────────────────────────────── */}
       <Section id="about" spacing="lg">
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <Reveal>
-            <SectionHeading eyebrow="About" title="Enterprise software, built to last." />
-          </Reveal>
+          <div className="flex flex-col gap-8">
+            <Reveal>
+              <SectionHeading eyebrow="About" title="Enterprise software, built to last." />
+            </Reveal>
+            <Reveal delay={100} className="hidden lg:block">
+              <HeroArtwork />
+            </Reveal>
+          </div>
           <Reveal delay={80}>
             <Prose className="max-w-none">
               {profile.about.map((para, i) => (

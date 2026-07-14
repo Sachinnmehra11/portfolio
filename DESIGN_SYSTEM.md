@@ -55,7 +55,9 @@ in one viewport.
 
 - **Inter** — headings, body, UI, buttons, labels.
 - **Geist Mono** — code, tech tags, metadata labels, dates, architecture labels.
-- No third typeface.
+- **Instrument Serif (italic)** — accent-only exception, used for the single
+  hero greeting line ("Hey, I'm Sachin"). Not used anywhere else — the rest of
+  the site stays two-typeface per the original system.
 
 Scale is implemented as component classes (`.t-hero-display`, `.t-h1…h5`,
 `.t-subtitle`, `.t-body`, `.t-body-sm`, `.t-caption`, `.t-micro-upper`,
@@ -76,6 +78,16 @@ mobile. Body copy is constrained to `--reading-max: 720px`.
   enhancement: content is visible if JS never runs.
 
 ---
+
+## Hero variant
+
+The homepage hero uses a warm, personality-forward pivot (`.hero-atmosphere-warm`,
+peach/cream gradient) instead of the cooler default `.hero-atmosphere`, paired
+with a large framed portrait (real background retained, no cutout — see
+`components/content/HeroPortrait.tsx`). Truthful stats (years experience,
+featured-case-study count) are derived from real content data, never
+hardcoded or fabricated. The rest of the site keeps the original cooler
+mint/near-black system; the warm variant is scoped to the hero only.
 
 ## Layout
 

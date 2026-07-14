@@ -224,6 +224,21 @@
     background-size: 32px 32px;
   }
 
+  /* Warm hero variant — personality-forward pivot for the homepage hero. */
+  .hero-atmosphere-warm {
+    background:
+      radial-gradient(90% 70% at 85% 10%, var(--hero-warm-bloom), transparent 60%),
+      radial-gradient(70% 60% at 5% 100%, var(--hero-warm-bloom-2), transparent 55%),
+      linear-gradient(160deg, var(--hero-warm-a) 0%, var(--hero-warm-b) 100%);
+  }
+
+  .font-accent-serif {
+    font-family: var(--font-accent-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
   /* Reveal-on-scroll (progressive enhancement; safe default = visible) */
   .reveal {
     opacity: 0;
