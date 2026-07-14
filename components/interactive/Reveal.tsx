@@ -27,16 +27,16 @@ export function Reveal({
   children: ReactNode;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
+  const inView = useInView(ref, { once: true, margin: "0px 0px -12% 0px" });
   const MotionTag = motion[as];
 
   return (
     <MotionTag
       // @ts-expect-error — ref type varies by tag; runtime is correct.
       ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: delay / 1000 }}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: delay / 1000 }}
       className={className}
     >
       {children}

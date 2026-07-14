@@ -18,7 +18,9 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       initial="rest"
       animate="rest"
       whileHover="hover"
-      className="group relative grid grid-cols-1 gap-6 rounded-xl border border-hairline bg-canvas p-6 transition-colors duration-[180ms] hover:border-stone sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-10"
+      variants={{ rest: { y: 0 }, hover: { y: -6 } }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative grid grid-cols-1 gap-6 rounded-xl border border-hairline bg-canvas p-6 shadow-[var(--shadow-level-1)] transition-colors duration-[180ms] hover:border-stone hover:shadow-[var(--shadow-level-2)] sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-10"
     >
       {/* Media — subtle scale on card hover */}
       <div className={cn("order-1 overflow-hidden rounded-xl", mediaRight ? "lg:order-2" : "lg:order-1")}>

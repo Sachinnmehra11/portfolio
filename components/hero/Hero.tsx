@@ -14,12 +14,12 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
 export function Hero() {
@@ -99,7 +99,7 @@ export function Hero() {
 
         {/* Portrait column — 3D scene behind, portrait fades + lifts in */}
         <div className="relative hidden w-full lg:block lg:justify-self-end">
-          <HeroScene className="absolute -inset-8 -z-0" />
+          <HeroScene className="absolute -inset-x-8 -top-24 -bottom-6 -z-0" />
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

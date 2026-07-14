@@ -85,19 +85,26 @@ function CentralSphere() {
 
 function ServiceNode({ node, index }: { node: NodeDef; index: number }) {
   const ref = useRef<THREE.Mesh>(null);
+  const mat = useRef<THREE.MeshStandardMaterial>(null);
   const base = useMemo(() => nodePosition(node), [node]);
 
   useFrame((state) => {
-    if (!ref.current) return;
-    // very subtle bob so nodes feel alive without distracting
     const t = state.clock.elapsedTime;
-    ref.current.position.y = base[1] + Math.sin(t * 0.6 + index) * 0.06;
+    if (ref.current) {
+      // gentle bob so nodes feel alive without distracting
+      ref.current.position.y = base[1] + Math.sin(t * 0.7 + index) * 0.09;
+    }
+    if (mat.current) {
+      // soft glow pulse, offset per node
+      mat.current.emissiveIntensity = 1.5 + Math.sin(t * 1.1 + index * 1.3) * 0.5;
+    }
   });
 
   return (
     <mesh ref={ref} position={base}>
-      <sphereGeometry args={[0.17, 24, 24]} />
+      <sphereGeometry args={[0.19, 24, 24]} />
       <meshStandardMaterial
+        ref={mat}
         color={node.color}
         emissive={node.color}
         emissiveIntensity={1.5}
@@ -137,19 +144,19 @@ function Rig({ animate }: { animate: boolean }) {
 
   useFrame((state, delta) => {
     if (spin.current && animate) {
-      spin.current.rotation.y += delta * 0.08; // slow ambient rotation
+      spin.current.rotation.y += delta * 0.14; // slow ambient rotation
     }
     if (outer.current) {
       // subtle pointer parallax, eased
-      const targetX = -state.pointer.y * 0.12;
-      const targetY = state.pointer.x * 0.12;
+      const targetX = -state.pointer.y * 0.14;
+      const targetY = state.pointer.x * 0.14;
       outer.current.rotation.x += (targetX - outer.current.rotation.x) * 0.05;
       outer.current.rotation.y += (targetY - outer.current.rotation.y) * 0.05;
     }
   });
 
   return (
-    <group ref={outer}>
+    <group ref={outer} position={[0, 0.7, 0]}>
       <group ref={spin} rotation={[0.15, 0, 0.08]}>
         <CentralSphere />
         <Connections />
