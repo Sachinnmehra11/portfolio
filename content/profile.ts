@@ -28,7 +28,7 @@ export const profile = {
   },
 
   hero: {
-    greeting: "Hey, I'm Sachin",
+    greeting: "Hey, There! I'm",
     eyebrow: "Software Engineer · New Delhi",
     nameDisplay: "SACHIN MEHRA",
     titleDisplay: "SOFTWARE ENGINEER",
